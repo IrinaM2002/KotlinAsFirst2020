@@ -65,7 +65,7 @@ fun main() {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 3600 + minutes * 60 + seconds
+fun seconds(hours: Int, minutes: Int, seconds: Int) = hours * 3600 + minutes * 60 + seconds
 
 /**
  * Тривиальная (1 балл)
@@ -83,7 +83,8 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(deg: Int, min: Int, sec: Int): Double = TODO()
+fun angleInRadian(deg: Int, min: Int, sec: Int): Double =
+    deg * PI / 180 + min * PI / 180 / 60 + sec * PI / 180 / 3600
 
 /**
  * Тривиальная (1 балл)
@@ -125,4 +126,4 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int = number % 10 * 100 + number / 10 % 10 *10 + number / 100
+fun numberRevert(number: Int): Int = number % 10 * 100 + number / 10 % 10 * 10 + number / 100
