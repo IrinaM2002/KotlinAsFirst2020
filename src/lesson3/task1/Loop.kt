@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -72,7 +73,20 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var count = 0
+    var k = 1
+    var number = n
+    if (number == 0) return k
+    else {
+        while (number != 0) {
+            count++
+            number /= 10
+        }
+        return count
+    }
+}
+
 
 /**
  * Простая (2 балла)
@@ -80,7 +94,23 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var fib1 = 1
+    var fib2 = 1
+    var fib3 = 0
+    if (n == 1) return fib1
+    else {
+        if (n == 2) return fib2
+        else {
+            for (i in 3..n) {
+                fib3 = fib1 + fib2
+                fib1 = fib2
+                fib2 = fib3
+            }
+            return fib3
+        }
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -201,7 +231,34 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var number = 1
+    var number2 = 0
+    var number3 = 0
+    var count = 0
+    var k = 0
+    for (i in 1..n) {
+        number2 = sqr(number)
+        k = number2
+        number3 = 0
+        while (number2 > 0){
+            number3 = number3 * 10 + number2 % 10
+            number2 = number2 / 10
+        }
+        while (k != 0) {
+            count++
+            k = k / 10
+            if (n == count) {
+
+                return number3 % 10
+            } else {
+                number3 = number3 / 10
+            }
+        }
+        number++
+    }
+    return 0
+}
 
 /**
  * Сложная (5 баллов)
@@ -212,4 +269,35 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var fib1 = 1
+    var fib2 = 1
+    var fib3 = 0
+    var fib4 = 0
+    var count = 2
+    var k = 0
+    if (n == 1 || n == 2) return fib1
+    else {
+        for (i in 3..n) {
+            fib3 = fib1 + fib2
+            fib1 = fib2
+            fib2 = fib3
+            fib4 = 0
+            k = fib3
+            while (fib3 > 0){
+                fib4 = fib4 * 10 + fib3 % 10
+                fib3 = fib3 / 10
+            }
+            while (k != 0) {
+                count++
+                k = k / 10
+                if (n == count) {
+                    return fib4 % 10
+                } else {
+                    fib4 = fib4 / 10
+                }
+            }
+        }
+    }
+    return 0
+}
