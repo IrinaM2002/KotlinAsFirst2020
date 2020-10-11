@@ -22,9 +22,7 @@ fun isNumberHappy(number: Int): Boolean {
     val number12 = number / 1000 + number / 100 % 10
     val number34 = number % 10 + number / 10 % 10
 
-    if (number12 == number34) return true
-        else return false
-
+    return number12 == number34
 }
 
 /**

@@ -71,7 +71,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String {
     if (age % 100 in 11..14) return "$age лет"
-    return when (age % 10) {
+    when (age % 10) {
         1 -> return "$age год"
         2, 3, 4 -> return "$age года"
         else -> return "$age лет"
@@ -98,7 +98,7 @@ fun timeForHalfWay(
     if (t1 * v1 == s) return t1
     if (t1 * v1 + t2 * v2 == s) return (t1 + t2)
     if (s < s1) return (s / v1)
-    if (s > (s1 + s2)) return (t1 + t2 + (s - s1 - s2) / v3) else return (t1 + (s - s1) / v2)
+    return if (s > (s1 + s2)) (t1 + t2 + (s - s1 - s2) / v3) else (t1 + (s - s1) / v2)
 }
 
 /**
@@ -117,14 +117,11 @@ fun whichRookThreatens(
 ): Int {
 
     if ((rookX1 == kingX) || (rookY1 == kingY)) {
-        if (((rookX1 == kingX) || (rookY1 == kingY)) && ((rookX2 == kingX) || (rookY2 == kingY))) return 3
-        else return 1
+        return if ((rookX2 == kingX) || (rookY2 == kingY)) 3
+        else 1
     }
-    if ((rookX2 == kingX) || (rookY2 == kingY)) {
-        if (((rookX1 == kingX) || (rookY1 == kingY)) && ((rookX2 == kingX) || (rookY2 == kingY))) return 3
-        else return 2
-    }
-    else return 0
+    return if ((rookX2 == kingX) || (rookY2 == kingY)) 2
+    else 0
 }
 
 /**
@@ -153,7 +150,7 @@ fun rookOrBishopThreatens(
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
     return when {
-        (((a + b < c) && (c > b) && (c > a)) || ((a + c < b) && (b > c) && (b > a)) || ((b + c < a) && (a > b) && (a > c))) -> -1
+        ((a + b < c) || (a + c < b) || (b + c < a)) -> -1
         ((sqr(a) + sqr(b) < sqr(c)) || (sqr(a) + sqr(c) < sqr(b)) || (sqr(c) + sqr(b) < sqr(a))) -> 2
         ((sqr(a) + sqr(b) == sqr(c)) || (sqr(a) + sqr(c) == sqr(b)) || (sqr(c) + sqr(b) == sqr(a))) -> 1
         ((sqr(a) + sqr(b) > sqr(c)) || (sqr(a) + sqr(c) > sqr(b)) || (sqr(c) + sqr(b) > sqr(a))) -> 0
@@ -171,8 +168,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
         b < c || d < a -> -1
-        c <= b && a <= c && b <= d -> b - c
-        c <= b && a <= c && d <= b -> d - c
+        c in a..b && b <= d -> b - c
+        c in a..b && d <= b -> d - c
         a >= c && d <= b && d >= a -> d - a
         a >= c && b <= d -> b - a
         else -> -1

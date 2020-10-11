@@ -2,8 +2,8 @@
 
 package lesson3.task1
 
-import lesson1.task1.sqr
 import kotlin.math.sqrt
+import lesson1.task1.sqr as sqr1
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -75,16 +75,14 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 0
-    var k = 1
     var number = n
-    if (number == 0) return k
-    else {
-        while (number != 0) {
-            count++
-            number /= 10
-        }
-        return count
-    }
+
+    do {
+        count++
+        number /= 10
+    } while (number > 0)
+    return count
+
 }
 
 
@@ -98,18 +96,16 @@ fun fib(n: Int): Int {
     var fib1 = 1
     var fib2 = 1
     var fib3 = 0
-    if (n == 1) return fib1
+    return if ((n == 1) || (n == 2)) fib1
     else {
-        if (n == 2) return fib2
-        else {
-            for (i in 3..n) {
-                fib3 = fib1 + fib2
-                fib1 = fib2
-                fib2 = fib3
-            }
-            return fib3
+        for (i in 3..n) {
+            fib3 = fib1 + fib2
+            fib1 = fib2
+            fib2 = fib3
         }
+        fib3
     }
+
 }
 
 /**
@@ -177,7 +173,15 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var k = 0
+    var n2 = n
+    while (n2 > 0) {
+        k = k * 10 + n2 % 10
+        n2 /= 10
+    }
+    return k
+}
 
 /**
  * Средняя (3 балла)
@@ -188,7 +192,15 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var n1 = 0
+    var n2 = n
+    while (n2 > 0) {
+        n1 = n1 * 10 + n2 % 10
+        n2 /= 10
+    }
+    return n1 == n
+}
 
 /**
  * Средняя (3 балла)
@@ -238,21 +250,21 @@ fun squareSequenceDigit(n: Int): Int {
     var count = 0
     var k = 0
     for (i in 1..n) {
-        number2 = sqr(number)
+        number2 = number * number
         k = number2
         number3 = 0
-        while (number2 > 0){
+        while (number2 != 0){
             number3 = number3 * 10 + number2 % 10
-            number2 = number2 / 10
+            number2 /= 10
         }
         while (k != 0) {
             count++
-            k = k / 10
+            k /= 10
             if (n == count) {
 
                 return number3 % 10
             } else {
-                number3 = number3 / 10
+                number3 /= 10
             }
         }
         number++
@@ -284,17 +296,17 @@ fun fibSequenceDigit(n: Int): Int {
             fib2 = fib3
             fib4 = 0
             k = fib3
-            while (fib3 > 0){
+            while (fib3 > 0) {
                 fib4 = fib4 * 10 + fib3 % 10
-                fib3 = fib3 / 10
+                fib3 /= 10
             }
-            while (k != 0) {
+            while (k > 0) {
                 count++
-                k = k / 10
+                k /= 10
                 if (n == count) {
                     return fib4 % 10
                 } else {
-                    fib4 = fib4 / 10
+                    fib4 /= 10
                 }
             }
         }
