@@ -71,10 +71,10 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String {
     if (age % 100 in 11..14) return "$age лет"
-    when (age % 10) {
-        1 -> return "$age год"
-        2, 3, 4 -> return "$age года"
-        else -> return "$age лет"
+    return when (age % 10) {
+        1 -> "$age год"
+        2, 3, 4 -> "$age года"
+        else -> "$age лет"
     }
 }
 
@@ -90,15 +90,15 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val s = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     val s1 = t1 * v1
     val s2 = t2 * v2
     val s3 = t3 * v3
+    val s = (s1 + s2 + s3) / 2
 
-    if (t1 * v1 == s) return t1
-    if (t1 * v1 + t2 * v2 == s) return (t1 + t2)
-    if (s < s1) return (s / v1)
-    return if (s > (s1 + s2)) (t1 + t2 + (s - s1 - s2) / v3) else (t1 + (s - s1) / v2)
+    if (s <= s1) return (s / v1)
+    return if (s1 + s2 >= s) (t1 + (s - s1) / v2)
+    else (t1 + t2 + (s - s1 - s2) / v3)
+
 }
 
 /**
@@ -149,13 +149,34 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return when {
-        ((a + b < c) || (a + c < b) || (b + c < a)) -> -1
-        ((sqr(a) + sqr(b) < sqr(c)) || (sqr(a) + sqr(c) < sqr(b)) || (sqr(c) + sqr(b) < sqr(a))) -> 2
-        ((sqr(a) + sqr(b) == sqr(c)) || (sqr(a) + sqr(c) == sqr(b)) || (sqr(c) + sqr(b) == sqr(a))) -> 1
-        ((sqr(a) + sqr(b) > sqr(c)) || (sqr(a) + sqr(c) > sqr(b)) || (sqr(c) + sqr(b) > sqr(a))) -> 0
-        else -> 0
+    if (c > a && c > b) {
+        return when {
+            (a + b < c) -> -1
+            (sqr(a) + sqr(b) < sqr(c)) -> 2
+            (sqr(a) + sqr(b) == sqr(c)) -> 1
+            (sqr(a) + sqr(b) > sqr(c)) -> 0
+            else -> 0
+        }
     }
+    if (b > a && b > c) {
+        return when {
+            (a + c < b) -> -1
+            (sqr(a) + sqr(c) < sqr(b)) -> 2
+            (sqr(a) + sqr(c) == sqr(b)) -> 1
+            (sqr(a) + sqr(c) > sqr(b)) -> 0
+            else -> 0
+        }
+    }
+    return if (a > b && a > c) {
+        when {
+            (b + c < a) -> -1
+            (sqr(c) + sqr(b) < sqr(a)) -> 2
+            (sqr(c) + sqr(b) == sqr(a)) -> 1
+            (sqr(c) + sqr(b) > sqr(a)) -> 0
+            else -> 0
+        }
+    } else 0
+
 }
 /**
  * Средняя (3 балла)

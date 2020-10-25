@@ -192,15 +192,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var n1 = 0
-    var n2 = n
-    while (n2 > 0) {
-        n1 = n1 * 10 + n2 % 10
-        n2 /= 10
-    }
-    return n1 == n
-}
+fun isPalindrome(n: Int): Boolean = (revert(n) == n)
 
 /**
  * Средняя (3 балла)
@@ -243,6 +235,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
+@Suppress("UNREACHABLE_CODE")
 fun squareSequenceDigit(n: Int): Int {
     var number = 1
     var number2 = 0
@@ -252,17 +245,13 @@ fun squareSequenceDigit(n: Int): Int {
     for (i in 1..n) {
         number2 = number * number
         k = number2
-        number3 = 0
-        while (number2 != 0){
-            number3 = number3 * 10 + number2 % 10
-            number2 /= 10
-        }
-        while (k != 0) {
+        number3 = revert(number2)
+        while (k > 0) {
             count++
             k /= 10
             if (n == count) {
-
                 return number3 % 10
+                break
             } else {
                 number3 /= 10
             }
