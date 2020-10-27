@@ -95,9 +95,11 @@ fun timeForHalfWay(
     val s3 = t3 * v3
     val s = (s1 + s2 + s3) / 2
 
-    if (s <= s1) return (s / v1)
-    return if (s1 + s2 >= s) (t1 + (s - s1) / v2)
-    else (t1 + t2 + (s - s1 - s2) / v3)
+    return when {
+        (s <= s1) -> (s / v1)
+        (s1 + s2 >= s) -> (t1 + (s - s1) / v2)
+        else -> (t1 + t2 + (s - s1 - s2) / v3)
+    }
 
 }
 
@@ -149,34 +151,13 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if (c > a && c > b) {
-        return when {
-            (a + b < c) -> -1
-            (sqr(a) + sqr(b) < sqr(c)) -> 2
-            (sqr(a) + sqr(b) == sqr(c)) -> 1
-            (sqr(a) + sqr(b) > sqr(c)) -> 0
-            else -> 0
-        }
+    return when {
+        ((a + b < c) || (a + c < b) || (b + c < a)) -> -1
+        ((sqr(a) + sqr(b) < sqr(c)) || (sqr(a) + sqr(c) < sqr(b)) || (sqr(c) + sqr(b) < sqr(a))) -> 2
+        ((sqr(a) + sqr(b) == sqr(c)) || (sqr(a) + sqr(c) == sqr(b)) || (sqr(c) + sqr(b) == sqr(a))) -> 1
+        ((sqr(a) + sqr(b) > sqr(c)) || (sqr(a) + sqr(c) > sqr(b)) || (sqr(c) + sqr(b) > sqr(a))) -> 0
+        else -> 0
     }
-    if (b > a && b > c) {
-        return when {
-            (a + c < b) -> -1
-            (sqr(a) + sqr(c) < sqr(b)) -> 2
-            (sqr(a) + sqr(c) == sqr(b)) -> 1
-            (sqr(a) + sqr(c) > sqr(b)) -> 0
-            else -> 0
-        }
-    }
-    return if (a > b && a > c) {
-        when {
-            (b + c < a) -> -1
-            (sqr(c) + sqr(b) < sqr(a)) -> 2
-            (sqr(c) + sqr(b) == sqr(a)) -> 1
-            (sqr(c) + sqr(b) > sqr(a)) -> 0
-            else -> 0
-        }
-    } else 0
-
 }
 /**
  * Средняя (3 балла)

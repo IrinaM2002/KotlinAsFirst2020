@@ -235,30 +235,29 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-@Suppress("UNREACHABLE_CODE")
+
+
 fun squareSequenceDigit(n: Int): Int {
     var number = 1
-    var number2 = 0
-    var number3 = 0
+    var square = 0
     var count = 0
-    var k = 0
-    for (i in 1..n) {
-        number2 = number * number
-        k = number2
-        number3 = revert(number2)
-        while (k > 0) {
-            count++
-            k /= 10
-            if (n == count) {
-                return number3 % 10
-                break
-            } else {
-                number3 /= 10
-            }
-        }
+    var square2 = 0
+    while (count < n) {
+        square = number * number
         number++
+        square2 = square
+        while (square2 > 0) {
+            count++
+            square2 /= 10
+        }
     }
-    return 0
+    return if (n == count) square % 10
+    else {
+        for (i in 1..count - n) {
+            square /= 10
+        }
+        square % 10
+    }
 }
 
 /**
@@ -271,34 +270,28 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var fib1 = 1
+    var fib1 = 0
     var fib2 = 1
-    var fib3 = 0
-    var fib4 = 0
-    var count = 2
+    var fib = 1
+    var count = 1
     var k = 0
-    if (n == 1 || n == 2) return fib1
-    else {
-        for (i in 3..n) {
-            fib3 = fib1 + fib2
-            fib1 = fib2
-            fib2 = fib3
-            fib4 = 0
-            k = fib3
-            while (fib3 > 0) {
-                fib4 = fib4 * 10 + fib3 % 10
-                fib3 /= 10
-            }
-            while (k > 0) {
-                count++
-                k /= 10
-                if (n == count) {
-                    return fib4 % 10
-                } else {
-                    fib4 /= 10
-                }
-            }
+    while (n > count) {
+        fib = fib1 + fib2
+        fib1 = fib2
+        fib2 = fib
+
+        k = fib
+        while (k > 0) {
+            count++
+            k /= 10
         }
     }
-    return 0
+    return if (n == count) fib % 10
+    else {
+        for (i in 1..count - n) {
+            fib /= 10
+        }
+        fib % 10
+    }
+
 }
