@@ -168,7 +168,14 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    for (i in 0 until list.size - 1) {
+        val element1 = list[i]
+        val element2 = list[i + 1]
+        list[i + 1] = element1 + element2
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -241,7 +248,33 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var number = n
+    val map1 = mapOf(
+        1000 to "M",
+        900 to "CM",
+        500 to "D",
+        400 to "CD",
+        100 to "C",
+        90 to "XC",
+        50 to "L",
+        40 to "XL",
+        10 to "X",
+        9 to "IX",
+        5 to "V",
+        4 to "IV",
+        1 to "I"
+    )
+    var result = ""
+
+    for ((key, value) in map1) {
+        while (number >= key) {
+            number -= key
+            result += value
+        }
+    }
+    return result
+}
 
 /**
  * Очень сложная (7 баллов)

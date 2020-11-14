@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import java.lang.Math.abs
 import kotlin.math.sqrt
 import lesson1.task1.sqr as sqr1
 
@@ -75,8 +76,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 0
-    var number = n
-
+    var number = abs(n)
     do {
         count++
         number /= 10
@@ -241,22 +241,22 @@ fun squareSequenceDigit(n: Int): Int {
     var number = 1
     var square = 0
     var count = 0
-    var square2 = 0
     while (count < n) {
         square = number * number
         number++
-        square2 = square
+        var square2 = square
         while (square2 > 0) {
             count++
             square2 /= 10
         }
     }
-    return if (n == count) square % 10
-    else {
+    if (n == count) {
+        return square % 10
+    } else {
         for (i in 1..count - n) {
             square /= 10
         }
-        square % 10
+        return square % 10
     }
 }
 
@@ -274,24 +274,23 @@ fun fibSequenceDigit(n: Int): Int {
     var fib2 = 1
     var fib = 1
     var count = 1
-    var k = 0
     while (n > count) {
         fib = fib1 + fib2
         fib1 = fib2
         fib2 = fib
 
-        k = fib
+        var k = fib
         while (k > 0) {
             count++
             k /= 10
         }
     }
-    return if (n == count) fib % 10
+    if (n == count) return fib % 10
     else {
         for (i in 1..count - n) {
             fib /= 10
         }
-        fib % 10
+        return fib % 10
     }
 
 }
