@@ -171,8 +171,7 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
     for (i in 0 until list.size - 1) {
         val element1 = list[i]
-        val element2 = list[i + 1]
-        list[i + 1] = element1 + element2
+        list[i + 1] += element1
     }
     return list
 }

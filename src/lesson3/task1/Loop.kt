@@ -250,14 +250,11 @@ fun squareSequenceDigit(n: Int): Int {
             square2 /= 10
         }
     }
-    if (n == count) {
-        return square % 10
-    } else {
-        for (i in 1..count - n) {
-            square /= 10
-        }
-        return square % 10
+
+    for (i in 1..count - n) {
+        square /= 10
     }
+    return square % 10
 }
 
 /**
@@ -285,12 +282,10 @@ fun fibSequenceDigit(n: Int): Int {
             k /= 10
         }
     }
-    if (n == count) return fib % 10
-    else {
-        for (i in 1..count - n) {
-            fib /= 10
-        }
-        return fib % 10
+
+    for (i in 1..count - n) {
+        fib /= 10
     }
+    return fib % 10
 
 }
