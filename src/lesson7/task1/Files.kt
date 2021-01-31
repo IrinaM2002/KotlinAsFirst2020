@@ -75,7 +75,39 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val map = mutableMapOf<String, Int>()
+
+    for (word in substrings) {
+        val words = word.toLowerCase()
+        var i = 0
+        val imax = words.length
+        var count = 0
+        for (line in File(inputName).readLines()) {
+            val lines = line.toLowerCase()
+            val k = lines.length
+            if (k >= imax) {
+                var t = 0
+                while (t < k) {
+                    if (words[i] == lines[t]) {
+                        i++
+                    } else {
+                        i = 0
+                    }
+                    if (i == imax) {
+                        count++
+                        i = 0
+                        t++
+                        t -= imax
+                    }
+                    t++
+                }
+            }
+        }
+        map[word] = count
+    }
+    return map
+}
 
 
 /**
@@ -233,7 +265,37 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    val resultFile = File(outputName).bufferedWriter()
+    var resultString = " "
+    var maxLineLength = 0
+
+    for (lines in File(inputName).readLines()) {
+        val line = lines.toLowerCase()
+        val dictionary = mutableListOf<String>()
+
+        for (word in line.split("")) {
+            if (word in dictionary) {
+                break
+            } else {
+                dictionary += word
+                continue
+            }
+            break
+        }
+        if (line.length + 1 == dictionary.size) {
+            if (line.length == maxLineLength) {
+                resultString += ", "
+                resultString += lines
+            }
+            if (line.length > maxLineLength) {
+                maxLineLength = line.length
+                resultString = lines
+            }
+        } else continue
+
+    }
+    resultFile.write(resultString)
+    resultFile.close()
 }
 
 /**
