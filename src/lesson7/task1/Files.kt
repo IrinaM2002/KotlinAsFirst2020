@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.nio.charset.StandardCharsets
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -77,30 +78,18 @@ fun deleteMarked(inputName: String, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val map = mutableMapOf<String, Int>()
-
     for (word in substrings) {
-        val words = word.toLowerCase()
-        var i = 0
-        val imax = words.length
+        val wordToFind = word.toLowerCase()
         var count = 0
-        for (line in File(inputName).readLines()) {
-            val lines = line.toLowerCase()
-            val k = lines.length
-            if (k >= imax) {
-                var t = 0
-                while (t < k) {
-                    if (words[i] == lines[t]) {
-                        i++
-                    } else {
-                        i = 0
-                    }
-                    if (i == imax) {
-                        count++
-                        i = 0
-                        t++
-                        t -= imax
-                    }
-                    t++
+        for (line in File(inputName).readLines(StandardCharsets.UTF_8).map { it.toLowerCase() }) {
+            var foundIndex = 0
+            while (true) {
+                val nextIndex = line.indexOf(wordToFind, foundIndex)
+                if (nextIndex > -1) {
+                    count++
+                    foundIndex = nextIndex + 1
+                } else {
+                    break
                 }
             }
         }
@@ -108,7 +97,6 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     }
     return map
 }
-
 
 /**
  * Средняя (12 баллов)
