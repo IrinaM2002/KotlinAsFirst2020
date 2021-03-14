@@ -150,7 +150,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    TODO()
+    val list = str.split(" ")
+    var k = 0
+    var result = -1
+    for (i in 1 until list.size)
+        if (list[i - 1].toLowerCase() != list[i].toLowerCase()) k += list[i - 1].length + 1
+        else result = k
+    return result
+
+
 }
 
 /**
@@ -164,7 +172,27 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+
+fun mostExpensive(description: String): String {
+    val list = description.split(" ", "; ")
+    var k = 0
+    var result = ""
+    var resultError = ""
+
+    if (list.isEmpty() || list.size == 1) return resultError
+    return try {
+        for (i in 1..list.size step 2) {
+            if (list[i].toDouble() > k) {
+                k = list[i].toDouble().toInt()
+                result = list[i - 1]
+            }
+        }
+        result
+    } catch (e: NumberFormatException) {
+        resultError
+    }
+
+}
 
 /**
  * Сложная (6 баллов)
