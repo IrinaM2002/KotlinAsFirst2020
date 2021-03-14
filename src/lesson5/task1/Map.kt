@@ -313,27 +313,35 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
-    var sizeName = treasures.size
+    val sizeName = treasures.size
     val table: Array<Array<Int>> = Array(capacity + 1) { Array(sizeName + 1) { 0 } }
-    var result = setOf<String>()
+    val result = mutableSetOf<String>()
     val treasuresList = treasures.toList()
+    var capacityCopy = capacity
 
     for (i in 1..sizeName) {
-        var treasuresListI = treasuresList[i - 1]
-        var massa = treasuresListI.second.first
-        if (massa <= capacity) {
-            for (j in massa..capacity) {
-                var price = treasuresListI.second.second
+        val treasuresListI = treasuresList[i - 1]
+        val mass = treasuresListI.second.first
+        if (mass <= capacity) {
+            for (j in mass..capacity) {
+                val price = treasuresListI.second.second
 
-                if ((table[j - massa][i - 1] + price) >= table[j][i - 1]) {
-                    table[j][i] = table[j - massa][i - 1] + price
+                if ((table[j - mass][i - 1] + price) >= table[j][i - 1]) {
+                    table[j][i] = table[j - mass][i - 1] + price
                 } else table[j][i] = table[j][i - 1]
             }
         }
     }
-    for (t in 1..sizeName) {
-        var name = treasuresList[t - 1].first
-        if (table[capacity][t] > table[capacity][t - 1]) result += name
+    for (t in sizeName downTo 1) {
+        val name = treasuresList[t - 1].first
+        val treasuresListI = treasuresList[t - 1]
+        val mass = treasuresListI.second.first
+        if (table[capacity][t] > table[capacity][t - 1]) {
+            if (capacityCopy - mass >= 0) {
+                capacityCopy -= mass
+                result += name
+            }
+        }
     }
     return result
 }

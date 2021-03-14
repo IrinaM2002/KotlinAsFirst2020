@@ -155,10 +155,9 @@ fun firstDuplicateIndex(str: String): Int {
     var result = -1
     for (i in 1 until list.size)
         if (list[i - 1].toLowerCase() != list[i].toLowerCase()) k += list[i - 1].length + 1
-        else result = k
+        else return k
+
     return result
-
-
 }
 
 /**
@@ -182,7 +181,7 @@ fun mostExpensive(description: String): String {
     if (list.isEmpty() || list.size == 1) return resultError
     return try {
         for (i in 1..list.size step 2) {
-            if (list[i].toDouble() > k) {
+            if (list[i].toDouble() >= k) {
                 k = list[i].toDouble().toInt()
                 result = list[i - 1]
             }
