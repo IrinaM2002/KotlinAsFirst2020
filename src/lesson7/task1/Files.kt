@@ -266,9 +266,7 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
                 break
             } else {
                 dictionary += word
-                continue
             }
-            break
         }
         if (line.length + 1 == dictionary.size) {
             if (line.length == maxLineLength) {
