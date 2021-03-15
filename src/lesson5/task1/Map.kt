@@ -323,12 +323,17 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): MutableSe
         val treasuresListI = treasuresList[i - 1]
         val mass = treasuresListI.second.first
         if (mass <= capacity) {
-            for (j in mass..capacity) {
-                val price = treasuresListI.second.second
+            for (j in 1..capacity) {
+                if (j < mass) {
+                    table[j][i] = table[j][i - 1]
+                } else {
+                    val price = treasuresListI.second.second
 
-                if ((table[j - mass][i - 1] + price) >= table[j][i - 1]) {
-                    table[j][i] = table[j - mass][i - 1] + price
-                } else table[j][i] = table[j][i - 1]
+                    if ((table[j - mass][i - 1] + price) >= table[j][i - 1]) {
+                        table[j][i] = table[j - mass][i - 1] + price
+                    } else table[j][i] = table[j][i - 1]
+
+                }
 
             }
         }
